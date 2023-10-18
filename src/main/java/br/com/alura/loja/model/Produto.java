@@ -6,7 +6,8 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "produtos")
-@NamedQuery(name = "Produto.produtosPorCategoria" , query = "SELECT p FROM Produto p WHERE p.categoria.nome = :nome")
+@NamedQuery(name = "Produto.produtosPorCategoria" , query = "SELECT p FROM Produto p WHERE p.categoria.id.nome = :nome")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Produto {
 
     @Id
@@ -15,6 +16,8 @@ public class Produto {
     private String nome;
     private String descricao;
     private BigDecimal preco;
+
+    @Column (name = "data_cadastro")
     private LocalDate dataCadastro = LocalDate.now();
 
     @ManyToOne(fetch = FetchType.LAZY)
